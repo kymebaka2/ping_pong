@@ -1,7 +1,5 @@
 from pygame import *
 from random import *
-font.init()
-font = font.Font(None, 70)
 
 mixer.init()
 window = display.set_mode((700, 500))
@@ -40,8 +38,14 @@ class Player(GameSprite):
             if keys_pressed[K_LEFT] and self.rect.x > 5:
                 self.rect.x -= self.speed
 
+class Ball(GameSprite):
+    def update(self):
+        self.rect.x += self.speed
+        self.rect.y += self.speed
+
 player1 = Player('images.jpg',(100, 100), 5, 300, 390,'da' )
 player2 = Player('pngtree-ping-pong-paddle-isolated-on-transparent-background-png-image_16968660.webp',(100, 100), 5, 300, 50, 'Left,Up' )
+ball = Ball('images (1).jpg', (60,60), 5, 250,250, 'go')
 
 game = True
 while game:
@@ -51,7 +55,8 @@ while game:
     player1.otobrazi()
     player2.update()
     player2.otobrazi()
-
+    ball.otobrazi()
+    ball.update()
     for e in event.get():
         if e.type == QUIT:
             game = False
